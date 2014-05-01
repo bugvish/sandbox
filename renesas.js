@@ -68,7 +68,7 @@ window.resetEmail = function() {
 
 window.startServiceRequest = function() {
 	window.servicerq1 = true;
-	freeboard.showDialog($("<div>Service Request Detected!  Please press Confirm</div>"),"Alert","Confirm",null,function(){window.servicerq1=false;SWARM.send(allyellowon, toswarms);}); 
+	freeboard.showDialog($("<div>Service Request Detected!  Please press Confirm</div>"),"Alert","Confirm",null,function(){SWARM.send(allyellowon, toswarms);}); 
 }
 
 window.endServiceRequest = function() {
