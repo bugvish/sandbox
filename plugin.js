@@ -17,6 +17,18 @@
     ],
     newInstance   : function(settings, newInstanceCallback, updateCallback)
 	{
+	
+		newInstanceCallback(new RL78FridgeDatasourcePlugin(settings, updateCallback));
+	}
+
+
+
+	var RL78FridgeDatasourcePlugin = function(settings, updateCallback)
+	{
+		var self = this;
+		var currentSettings = settings;
+		var deviceState = {};
+
 		var messageUpdatedFunctions = [];
 		var swarmConnected = false;
 	
@@ -86,17 +98,6 @@
 			}
 		}
 	
-		newInstanceCallback(new RL78FridgeDatasourcePlugin(settings, updateCallback));
-	}
-
-
-
-	var RL78FridgeDatasourcePlugin = function(settings, updateCallback)
-	{
-		var self = this;
-		var currentSettings = settings;
-		var deviceState = {};
-
 		this.updateNow = function()
 		{
 			// Not implemented
