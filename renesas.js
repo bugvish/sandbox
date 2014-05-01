@@ -16,5 +16,6 @@ function toggleBuzzer() {
             feed: {
               freq: 100,
               duration: 1}, toswarms);
-        });
+        	}
+        }, toswarms);
 }
