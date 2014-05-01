@@ -55,7 +55,7 @@ function onPresence(presence) {
 					dom.async = false;
 					dom.loadXML(xdr.responseText);
 					console.log('response: '+xdr.responseText);
-					resources[swarm][resource] = xdr.responseText;
+					resources[resource] = xdr.responseText;
 					$('option').filter('#'+resource).html(xdr.responseText);
 				};
 				xdr.open("GET", "http://api.bugswarm.com/renesas/getmac/"+resource);
@@ -76,7 +76,7 @@ function onPresence(presence) {
 		          // process the response.
 		          console.log(data.id+' is named '+data.name);
 		              //$('option').filter('#'+resource).html(data.name);
-		          resources[swarm][resource] = data.name;
+		          resources[resource] = data.name;
 		          $('option').filter('#'+resource).html(data.name);
 		        };
 		  
