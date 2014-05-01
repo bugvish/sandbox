@@ -5,7 +5,7 @@ var allredoff = {name: 'LED', feed:{'led0':false,'led2':false,'led4':false, 'led
 var allyellowon = {name: 'LED', feed:{'led12':true}}; 
 var allyellowoff = {name: 'LED', feed:{'led12':false}}; 
 var resources = {};
-var window.selectedResource = "";
+window.selectedResource = "";
 var API_KEY = "bc60aa60d80f7c104ad1e028a5223e7660da5f8c";
 var CFG_KEY = "359aff0298658552ec987b9354ea754b684a4047";
 
