@@ -1,6 +1,15 @@
 setTimeout(function(){
 	SWARM.leave(["69df1aea11433b3f85d2ca6e9c3575a9c86f8182"]);
-	SWARM.join(["69df1aea11433b3f85d2ca6e9c3575a9c86f8182","5dbaf819af6eeec879a1a1d6c388664be4595bb3"]);},3000);
+	SWARM.join(["69df1aea11433b3f85d2ca6e9c3575a9c86f8182","5dbaf819af6eeec879a1a1d6c388664be4595bb3"]);
+	$('button#emailsubmit').click(function(e){
+		var emailaddy = $("#emailfield").val();
+	    	console.log(emailaddy);
+	    	window.setEmailAddress(emailaddy);
+	    	$("#emailfield").prop('disabled', true);
+	    	$('button#emailsubmit').prop("disabled",true);
+	});	
+	
+	},3000);
 
 var toswarms = [{swarm: "5dbaf819af6eeec879a1a1d6c388664be4595bb3",resource: "714e1063eaf0f7980238040e777fbe543bc73fdc"}];	
 var allredon = {name: 'LED', feed:{'led0':true,'led2':true,'led4':true, 'led6':true, 'led8':true, 'led10':true}}; 
@@ -77,6 +86,7 @@ window.endServiceRequest = function() {
 	SWARM.send(allyellowoff, toswarms);
 }
 
+/*
 setTimeout(function(){
 	$('button#emailsubmit').click(function(e){
 		var emailaddy = $("#emailfield").val();
@@ -85,5 +95,5 @@ setTimeout(function(){
 	    	$("#emailfield").prop('disabled', true);
 	    	$('button#emailsubmit').prop("disabled",true);
 	});
-},10000);
+},10000); */
 
