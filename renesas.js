@@ -22,7 +22,7 @@ setTimeout(function(){
 	    	console.log(emailaddy);
 	    	window.setEmailAddress(emailaddy);
 	    	$("#emailfield").prop('disabled', true);
-	    	//$('button#emailsubmit').prop("disabled",true);
+	    	$('button#emailsubmit').prop("disabled",true);
 	});	
 	
 	$('select#deviceSelect').on('change', function (e) {
@@ -31,7 +31,7 @@ setTimeout(function(){
     		window.selectedResource = valueSelected;
     		console.log(window.selectedResource);
     		freeboard.setDatasourceSettings("TestBoard", {"device_resource_id":window.selectedResource})
-    		$('select#deviceSelect').prop('disabled',true);
+    		//$('select#deviceSelect').prop('disabled',true);
 	});
 	
 },3000);
