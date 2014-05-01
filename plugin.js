@@ -1,5 +1,74 @@
 (function()
 {
+var messageUpdatedFunctions = [];
+var swarmConnected = false;
+
+function onPresence(presence)
+{
+	console.log(presence);
+}
+
+function onMessage(message)
+{
+	_.each(messageUpdatedFunctions, function(messageUpdatedFunction)
+	{
+		messageUpdatedFunction(message);
+	});
+}
+
+function onError(error)
+{
+	console.log('Bugswarm error! -> ' + JSON.stringify(error));
+}
+
+function onConnect()
+{
+	swarmConnected = true;
+}
+
+function connect() {
+	if(!swarmConnected)
+	{
+		SWARM.connect({ apikey: "bc60aa60d80f7c104ad1e028a5223e7660da5f8c",
+			resource          : "5cf5ad58fa9ad98a01841fde8e1761b2ca473dbf",
+			swarms            : ["69df1aea11433b3f85d2ca6e9c3575a9c86f8182"],
+			onmessage         : onMessage,
+			onpresence        : onPresence,
+			onerror           : onError,
+			onconnect         : onConnect
+		});
+	}
+}
+
+function processStartup(pluginInstance)
+{
+	connect();
+
+	if(!_.isUndefined(pluginInstance))
+	{
+		messageUpdatedFunctions.push(pluginInstance.messageReceived);
+	}
+}
+
+function processShutdown(pluginInstance)
+{
+	var index = messageUpdatedFunctions.indexOf(pluginInstance.messageReceived);
+
+	if(index != -1)
+	{
+		messageUpdatedFunctions.splice(index, 1);
+	}
+
+	if(messageUpdatedFunctions.length == 0)
+	{
+                if(swarmConnected)
+                {
+		SWARM.disconnect();
+		swarmConnected = false;
+                }
+	}
+}
+	
 	freeboard.loadDatasourcePlugin({
 
 
@@ -17,7 +86,6 @@
     ],
     newInstance   : function(settings, newInstanceCallback, updateCallback)
 	{
-	
 		newInstanceCallback(new RL78FridgeDatasourcePlugin(settings, updateCallback));
 	}
 
@@ -29,75 +97,6 @@
 		var currentSettings = settings;
 		var deviceState = {};
 
-		var messageUpdatedFunctions = [];
-		var swarmConnected = false;
-	
-		function onPresence(presence)
-		{
-			console.log(presence);
-		}
-	
-		function onMessage(message)
-		{
-			_.each(messageUpdatedFunctions, function(messageUpdatedFunction)
-			{
-				messageUpdatedFunction(message);
-			});
-		}
-	
-		function onError(error)
-		{
-			console.log('Bugswarm error! -> ' + JSON.stringify(error));
-		}
-	
-		function onConnect()
-		{
-			swarmConnected = true;
-		}
-	
-	        function connect() {
-			if(!swarmConnected)
-			{
-				SWARM.connect({ apikey: "bc60aa60d80f7c104ad1e028a5223e7660da5f8c",
-					resource          : "5cf5ad58fa9ad98a01841fde8e1761b2ca473dbf",
-					swarms            : ["69df1aea11433b3f85d2ca6e9c3575a9c86f8182"],
-					onmessage         : onMessage,
-					onpresence        : onPresence,
-					onerror           : onError,
-					onconnect         : onConnect
-				});
-			}
-		}
-	
-		function processStartup(pluginInstance)
-		{
-			connect();
-	
-			if(!_.isUndefined(pluginInstance))
-			{
-				messageUpdatedFunctions.push(pluginInstance.messageReceived);
-			}
-		}
-	
-		function processShutdown(pluginInstance)
-		{
-			var index = messageUpdatedFunctions.indexOf(pluginInstance.messageReceived);
-	
-			if(index != -1)
-			{
-				messageUpdatedFunctions.splice(index, 1);
-			}
-	
-			if(messageUpdatedFunctions.length == 0)
-			{
-	                        if(swarmConnected)
-	                        {
-				SWARM.disconnect();
-				swarmConnected = false;
-	                        }
-			}
-		}
-	
 		this.updateNow = function()
 		{
 			// Not implemented
