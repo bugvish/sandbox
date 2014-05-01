@@ -87,7 +87,7 @@ function processShutdown(pluginInstance)
     newInstance   : function(settings, newInstanceCallback, updateCallback)
 	{
 		newInstanceCallback(new RL78FridgeDatasourcePlugin(settings, updateCallback));
-	}
+	});
 
 
 
