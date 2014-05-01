@@ -4,15 +4,16 @@ setTimeout(function(){
 
 
 var toswarms = [{swarm: "5dbaf819af6eeec879a1a1d6c388664be4595bb3",resource: "714e1063eaf0f7980238040e777fbe543bc73fdc"}];	
+var allredon = {name: 'LED', feed:{'led0':true,'led2':true,'led4':true, 'led6':true, 'led8':true, 'led10':true}}; 
+var allredoff = {name: 'LED', feed:{'led0':false,'led2':false,'led4':false, 'led6':false, 'led8':false, 'led10':false}}; 
 
 
 window.alertActive = false;
 
 window.tipAlert = function(){
-	var message = {name: 'LED', feed:{'led0':true,'led2':true,'led4':true, 'led6':true, 'led8':true, 'led10':true}}; 
 	//message.feed['led12']=(true);
-	SWARM.send(message, toswarms);
-	freeboard.showDialog($("<div>Alert!  Machine was tipped over.  Send Repair Team.</div>"),"Alert","ok",null,function(){window.alertActive=false;}); 
+	SWARM.send(allredon, toswarms);
+	freeboard.showDialog($("<div>Alert!  Machine was tipped over.  Send Repair Team.</div>"),"Alert","ok",null,function(){window.alertActive=false;SWARM.send(allredoff, toswarms);}); 
 	window.alertActive = true;
 }
 
