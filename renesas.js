@@ -6,11 +6,15 @@ setTimeout(function(){
 var toswarms = [{swarm: "5dbaf819af6eeec879a1a1d6c388664be4595bb3",resource: "714e1063eaf0f7980238040e777fbe543bc73fdc"}];	
 var allredon = {name: 'LED', feed:{'led0':true,'led2':true,'led4':true, 'led6':true, 'led8':true, 'led10':true}}; 
 var allredoff = {name: 'LED', feed:{'led0':false,'led2':false,'led4':false, 'led6':false, 'led8':false, 'led10':false}}; 
+var allyellowon = {name: 'LED', feed:{'led12':true}}; 
+var allyellowoff = {name: 'LED', feed:{'led12':false}}; 
 
 
 window.alertActive = false;
 window.emailActive = false;
 window.userEmailAddress = "";
+window.servicerq1 = false;
+window.servicerq2 = false;
 
 window.tipAlert = function(){
 	//message.feed['led12']=(true);
@@ -60,4 +64,14 @@ window.sendEmailAlert = function() {
 
 window.resetEmail = function() {
 	window.emailActive = false;
+}
+
+window.startServiceRequest = function() {
+	window.servicerq1 = true;
+	freeboard.showDialog($("<div>Service Request Detected!  Please press Confirm</div>"),"Alert","Confirm",null,function(){window.servicerq1=false;SWARM.send(allyellowon, toswarms);}); 
+}
+
+window.endServiceRequest = function() {
+	window.servicerq2 = true;
+	SWARM.send(allyellowoff, toswarms);}
 }
