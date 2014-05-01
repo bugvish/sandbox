@@ -40,7 +40,7 @@ window.setEmailAddress = function(email) {
 
 window.sendEmailAlert = function() {
 	window.emailActive = true;
-	if (userEmailAddress !=== '') {
+	if (userEmailAddress !== '') {
 		$.ajax({
 		  type: "POST",
 		  url: "https://mandrillapp.com/api/1.0/messages/send.json",
