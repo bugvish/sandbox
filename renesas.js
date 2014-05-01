@@ -35,7 +35,7 @@ window.toggleBuzzer = function() {
 }
 
 window.setEmailAddress = function(email) {
-	userEmailAddress = email;
+	window.userEmailAddress = email;
 }
 
 window.sendEmailAlert = function() {
