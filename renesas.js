@@ -78,14 +78,12 @@ window.endServiceRequest = function() {
 	SWARM.send(allyellowoff, toswarms);
 }
 
-
-freeboard.on("dashboard_loaded", function(){
+setTimeout(function(){
 	$('button#emailsubmit').click(function(e){
 		var emailaddy = $("#emailfield").val();
 	    	console.log(emailaddy);
 	    	window.setEmailAddress(emailaddy);
 	    	$("#emailfield").prop('disabled', true);
 	});
-});
-
+},10000);
 
