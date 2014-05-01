@@ -30,21 +30,21 @@ window.toggleBuzzer = function() {
 
 window.sendEmailAlert = function(email) {
 	$.ajax({
-	  type: “POST”,
-	  url: “https://mandrillapp.com/api/1.0/messages/send.json”,
+	  type: "POST",
+	  url: "https://mandrillapp.com/api/1.0/messages/send.json",
 	  data: {
-	    ‘key’: ‘gNeJtNdrBCy42EZp3dsMbw’,
-	    ‘message’: {
-	      ‘from_email’: ‘alerts@bugswarm.com’,
-	      ‘to’: [
+	    'key': 'gNeJtNdrBCy42EZp3dsMbw',
+	    'message': {
+	      'from_email': 'alerts@bugswarm.com',
+	      'to': [
 	          {
-	            ‘email’: email,
-	            ‘type’: ‘to’
+	            'email': email,
+	            'type': 'to'
 	          }
 	        ],
-	      ‘autotext’: ‘true’,
-	      ‘subject’: ‘RL78 Refridgeration Alert!’,
-	      ‘html’: ‘Temperature exceeded threshold’
+	      'autotext': 'true',
+	      'subject': 'RL78 Refridgeration Alert!',
+	      'html': 'Temperature exceeded threshold'
 	    }
 	  }
 	 }).done(function(response) {
