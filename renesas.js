@@ -82,6 +82,7 @@ $('button#emailsubmit').click(function(e){
 	var emailaddy = $("#emailfield").val();
     	console.log(emailaddy);
     	window.setEmailAddress(emailaddy);
+    	$("#emailfield").prop('disabled', true);
 });
 
 
