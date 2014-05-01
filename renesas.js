@@ -40,26 +40,28 @@ window.setEmailAddress = function(email) {
 
 window.sendEmailAlert = function() {
 	window.emailActive = true;
-	$.ajax({
-	  type: "POST",
-	  url: "https://mandrillapp.com/api/1.0/messages/send.json",
-	  data: {
-	    'key': 'gNeJtNdrBCy42EZp3dsMbw',
-	    'message': {
-	      'from_email': 'alerts@bugswarm.com',
-	      'to': [
-	          {
-	            'email': window.userEmailAddress,
-	            'type': 'to'
-	          }
-	        ],
-	      'autotext': 'true',
-	      'subject': 'RL78 Refridgeration Alert!',
-	      'html': 'Temperature exceeded threshold'
-	    }
-	  }
-	 }).done(function(response) {
-	 });
+	if (userEmailAddress !=== '') {
+		$.ajax({
+		  type: "POST",
+		  url: "https://mandrillapp.com/api/1.0/messages/send.json",
+		  data: {
+		    'key': 'gNeJtNdrBCy42EZp3dsMbw',
+		    'message': {
+		      'from_email': 'alerts@bugswarm.com',
+		      'to': [
+		          {
+		            'email': window.userEmailAddress,
+		            'type': 'to'
+		          }
+		        ],
+		      'autotext': 'true',
+		      'subject': 'RL78 Refridgeration Alert!',
+		      'html': 'Temperature exceeded threshold'
+		    }
+		  }
+		 }).done(function(response) {
+		 });
+	}
 }
 
 window.resetEmail = function() {
@@ -78,7 +80,8 @@ window.endServiceRequest = function() {
 
 $('button#emailsubmit').click(function(e){
 	var emailaddy = $("#emailfield").val();
-    console.log(emailaddy);
+    	console.log(emailaddy);
+    	window.setEmailAddress(emailaddy);
 });
 
 
