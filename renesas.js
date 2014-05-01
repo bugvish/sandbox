@@ -22,7 +22,7 @@ setTimeout(function(){
 	    	console.log(emailaddy);
 	    	window.setEmailAddress(emailaddy);
 	    	$("#emailfield").prop('disabled', true);
-	    	$('button#emailsubmit').prop("disabled",true);
+	    	//$('button#emailsubmit').prop("disabled",true);
 	});	
 	
 	$('select#deviceSelect').on('change', function (e) {
