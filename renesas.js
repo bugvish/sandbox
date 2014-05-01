@@ -75,3 +75,11 @@ window.endServiceRequest = function() {
 	window.servicerq2 = true;
 	SWARM.send(allyellowoff, toswarms);
 }
+
+$('button#emailsubmit').click(function(e){
+	var emailaddy = $("#emailfield").val();
+    console.log(emailaddy);
+});
+
+
+
