@@ -12,7 +12,7 @@ setTimeout(function(){
 	},3000);
 
 function onPresence(presence) {
-	console.log('yayyyy');	
+	console.log(presence);
 
 }
 
