@@ -9,6 +9,7 @@ var allredoff = {name: 'LED', feed:{'led0':false,'led2':false,'led4':false, 'led
 
 
 window.alertActive = false;
+window.emailActive = false;
 
 window.tipAlert = function(){
 	//message.feed['led12']=(true);
@@ -29,6 +30,7 @@ window.toggleBuzzer = function() {
 }
 
 window.sendEmailAlert = function(email) {
+	window.emailActive = true;
 	$.ajax({
 	  type: "POST",
 	  url: "https://mandrillapp.com/api/1.0/messages/send.json",
@@ -48,6 +50,9 @@ window.sendEmailAlert = function(email) {
 	    }
 	  }
 	 }).done(function(response) {
-	   console.log(response); // if you're into that sorta thing
 	 });
+}
+
+window.resetEmail = function() {
+	window.emailActive = false;
 }
