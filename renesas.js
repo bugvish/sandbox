@@ -9,3 +9,12 @@ function toggleLEDS() {
 	message.feed[10]=(true);
 	SWARM.send(message, toswarms);
 }
+
+function toggleBuzzer() {
+	 SWARM.send({
+            name: 'Beep',
+            feed: {
+              freq: 100,
+              duration: 1}, toswarms);
+        });
+}
