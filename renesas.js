@@ -5,17 +5,24 @@ setTimeout(function(){
 
 var toswarms = [{swarm: "5dbaf819af6eeec879a1a1d6c388664be4595bb3",resource: "714e1063eaf0f7980238040e777fbe543bc73fdc"}];	
 
+window.alertActive = false;
+
 window.toggleLEDS = function(){
 	var message = {name: 'LED', feed:{}}; 
 	message.feed['led12']=(true);
 	SWARM.send(message, toswarms);
+	freeboard.showDialog($("<div>hello world</div>"),"test","ok","cancel",function(){window.alertActive=false;}); 
+	window.alertActive = true;
 }
 
 window.toggleBuzzer = function() {
 	 SWARM.send({
             name: 'Beep',
             feed: {
+
               freq: 100,
               duration: 1}}, toswarms);
+        freeboard.showDialog($("<div>hello world</div>"),"test","ok",null,function(){window.alertActive=false;}); 
+        window.alertActive = true;
         	
 }
