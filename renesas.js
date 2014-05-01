@@ -1,4 +1,6 @@
-setTimeout(function(){SWARM.join(["5dbaf819af6eeec879a1a1d6c388664be4595bb3"]);},5000);
+setTimeout(function(){
+	SWARM.leave(["69df1aea11433b3f85d2ca6e9c3575a9c86f8182"]);
+	SWARM.join(["69df1aea11433b3f85d2ca6e9c3575a9c86f8182","5dbaf819af6eeec879a1a1d6c388664be4595bb3"]);},5000);
 
 
 function toggleLEDS() {
