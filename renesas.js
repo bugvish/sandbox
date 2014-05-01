@@ -136,7 +136,7 @@ function createCORSRequest(method, url) {
 
 window.tipAlert = function(){
 	//message.feed['led12']=(true);
-	SWARM.send(allredon, toswarms);
+	SWARM.send(allredon, [{swarm: "5dbaf819af6eeec879a1a1d6c388664be4595bb3",resource: window.selectedResource}]);
 	freeboard.showDialog($("<div>Alert!  Machine was tipped over.  Send Repair Team.</div>"),"Alert","ok",null,function(){window.alertActive=false;SWARM.send(allredoff, [{swarm: "5dbaf819af6eeec879a1a1d6c388664be4595bb3",resource: window.selectedResource}]);}); 
 	window.alertActive = true;
 }
