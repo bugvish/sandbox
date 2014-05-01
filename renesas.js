@@ -10,6 +10,7 @@ var allredoff = {name: 'LED', feed:{'led0':false,'led2':false,'led4':false, 'led
 
 window.alertActive = false;
 window.emailActive = false;
+window.userEmailAddress = "";
 
 window.tipAlert = function(){
 	//message.feed['led12']=(true);
@@ -29,7 +30,11 @@ window.toggleBuzzer = function() {
         window.alertActive = true;
 }
 
-window.sendEmailAlert = function(email) {
+window.setEmailAddress = function(email) {
+	userEmailAddress = email;
+}
+
+window.sendEmailAlert = function() {
 	window.emailActive = true;
 	$.ajax({
 	  type: "POST",
@@ -40,7 +45,7 @@ window.sendEmailAlert = function(email) {
 	      'from_email': 'alerts@bugswarm.com',
 	      'to': [
 	          {
-	            'email': email,
+	            'email': window.userEmailAddress,
 	            'type': 'to'
 	          }
 	        ],
