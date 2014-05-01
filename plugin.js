@@ -26,12 +26,13 @@ function onConnect()
 	swarmConnected = true;
 }
 
+
 function connect() {
 	if(!swarmConnected)
 	{
 		SWARM.connect({ apikey: "bc60aa60d80f7c104ad1e028a5223e7660da5f8c",
 			resource          : "5cf5ad58fa9ad98a01841fde8e1761b2ca473dbf",
-			swarms            : ["69df1aea11433b3f85d2ca6e9c3575a9c86f8182"],
+			swarms            : ["69df1aea11433b3f85d2ca6e9c3575a9c86f8182","5dbaf819af6eeec879a1a1d6c388664be4595bb3"],
 			onmessage         : onMessage,
 			onpresence        : onPresence,
 			onerror           : onError,
