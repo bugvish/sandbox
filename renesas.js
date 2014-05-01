@@ -1,3 +1,13 @@
+var toswarms = [{swarm: "5dbaf819af6eeec879a1a1d6c388664be4595bb3",resource: "714e1063eaf0f7980238040e777fbe543bc73fdc"}];	
+var WEBUI_RESOURCE = "5cf5ad58fa9ad98a01841fde8e1761b2ca473dbf";
+var allredon = {name: 'LED', feed:{'led0':true,'led2':true,'led4':true, 'led6':true, 'led8':true, 'led10':true}}; 
+var allredoff = {name: 'LED', feed:{'led0':false,'led2':false,'led4':false, 'led6':false, 'led8':false, 'led10':false}}; 
+var allyellowon = {name: 'LED', feed:{'led12':true}}; 
+var allyellowoff = {name: 'LED', feed:{'led12':false}}; 
+var resources = {};
+var selectedResource = "";
+
+
 setTimeout(function(){
 	$('button#emailsubmit').click(function(e){
 		var emailaddy = $("#emailfield").val();
@@ -7,19 +17,83 @@ setTimeout(function(){
 	    	$('button#emailsubmit').prop("disabled",true);
 	});	
 	
+//	deviceSelect
+	
+	
 	},3000);
 
 function onPresence(presence) {
 	console.log(presence);
 
+    if (("swarm" in presence.from) && (presence.from.resource !== WEBUI_RESOURCE)){
+        var resource = presence.from.resource;
+        var swarm = presence.from.swarm;
+        if (presence.type === "unavailable"){
+		delete resources[resource];
+       		$('option#' + resource).remove();
+        }
+        else {
+        	resources[resource] = resource;
+		if ('XDomainRequest' in window && window.XDomainRequest !== null) {
+			// Use Microsoft XDR for Internet Explorer	
+			var xdr = new XDomainRequest();
+			if(xdr) {
+				xdr.onerror = function() { console.log('xdr error!');};
+				xdr.ontimeout = function() { console.log('timed out'); return;};
+				xdr.onprogress = function() { return; };
+				xdr.timeout = 5000;
+				xdr.onload = function () {
+					var dom = new ActiveXObject("Microsoft.XMLDOM");
+					dom.async = false;
+					dom.loadXML(xdr.responseText);
+					console.log('response: '+xdr.responseText);
+					resources[swarm][resource] = xdr.responseText;
+					$('option').filter('#'+resource).html(xdr.responseText);
+				};
+				xdr.open("GET", "http://api.bugswarm.com/renesas/getmac/"+resource);
+				xdr.send(null);
+			}
+		}
+		else {
+		        var url = 'http://api.bugswarm.com/resources/' + resource;
+		        var xhr = createCORSRequest('GET', url);
+		        xhr.onload = function() {
+		          var responseText = xhr.responseText;
+		          var data = {};
+		          try {
+		            data = JSON.parse(xhr.responseText);
+		          } catch(e) {
+		            console.error(e);
+		          }
+		          // process the response.
+		          console.log(data.id+' is named '+data.name);
+		              //$('option').filter('#'+resource).html(data.name);
+		          resources[swarm][resource] = data.name;
+		          $('option').filter('#'+resource).html(data.name);
+		        };
+		  
+		        xhr.onerror = function() {
+		          console.log('CORS request: There was an error!');
+		        };
+		  
+		        xhr.setRequestHeader(
+		          'x-bugswarmapikey', CFG_KEY);
+		        xhr.send();
+		}
+		populateResourceList();
+		
+        } else{
+        	
+        }
+
 }
 
-var toswarms = [{swarm: "5dbaf819af6eeec879a1a1d6c388664be4595bb3",resource: "714e1063eaf0f7980238040e777fbe543bc73fdc"}];	
-var allredon = {name: 'LED', feed:{'led0':true,'led2':true,'led4':true, 'led6':true, 'led8':true, 'led10':true}}; 
-var allredoff = {name: 'LED', feed:{'led0':false,'led2':false,'led4':false, 'led6':false, 'led8':false, 'led10':false}}; 
-var allyellowon = {name: 'LED', feed:{'led12':true}}; 
-var allyellowoff = {name: 'LED', feed:{'led12':false}}; 
-
+function populateResourceList() {
+  $('option.reslistitem').remove();
+  for (var resource in resources){
+    $('select#deviceSelect').append('<OPTION class=reslistitem VALUE='+resource+' id='+resource+'>'+resources[resource]+'</OPTION>');
+  }
+}
 
 window.alertActive = false;
 window.emailActive = false;
