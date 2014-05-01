@@ -31,6 +31,7 @@ setTimeout(function(){
     		window.selectedResource = valueSelected;
     		console.log(window.selectedResource);
     		freeboard.setDatasourceSettings("TestBoard", {"device_resource_id":window.selectedResource})
+    		$('select#deviceSelect').prop('disabled',true);
 	});
 	
 },3000);
@@ -188,12 +189,12 @@ window.resetEmail = function() {
 
 window.startServiceRequest = function() {
 	window.servicerq1 = true;
-	freeboard.showDialog($("<div>Service Request Detected!  Please press Confirm</div>"),"Alert","Confirm",null,function(){SWARM.send(allyellowon, toswarms);}); 
+	freeboard.showDialog($("<div>Service Request Detected!  Please press Confirm</div>"),"Alert","Confirm",null,function(){SWARM.send(allyellowon, [{swarm: "5dbaf819af6eeec879a1a1d6c388664be4595bb3",resource: window.selectedResource}]);}); 
 }
 
 window.endServiceRequest = function() {
 	window.servicerq2 = true;
-	SWARM.send(allyellowoff, toswarms);
+	SWARM.send(allyellowoff, [{swarm: "5dbaf819af6eeec879a1a1d6c388664be4595bb3",resource: window.selectedResource}]);
 }
 
 /*
