@@ -82,10 +82,11 @@ function onPresence(presence) {
 		}
 		populateResourceList();
 		
-        } else{
+        } 
+     }
+     else{
         	
         }
-
 }
 
 function populateResourceList() {
