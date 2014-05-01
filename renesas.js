@@ -15,7 +15,6 @@ function toggleBuzzer() {
             name: 'Beep',
             feed: {
               freq: 100,
-              duration: 1}, toswarms);
-        	}
-        }, toswarms);
+              duration: 1}}, toswarms);
+        	
 }
