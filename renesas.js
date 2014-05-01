@@ -27,3 +27,27 @@ window.toggleBuzzer = function() {
         freeboard.showDialog($("<div>hello world</div>"),"test","ok",null,function(){window.alertActive=false;}); 
         window.alertActive = true;
 }
+
+window.sendEmailAlert = function(email) {
+	$.ajax({
+	  type: “POST”,
+	  url: “https://mandrillapp.com/api/1.0/messages/send.json”,
+	  data: {
+	    ‘key’: ‘gNeJtNdrBCy42EZp3dsMbw’,
+	    ‘message’: {
+	      ‘from_email’: ‘alerts@bugswarm.com’,
+	      ‘to’: [
+	          {
+	            ‘email’: email,
+	            ‘type’: ‘to’
+	          }
+	        ],
+	      ‘autotext’: ‘true’,
+	      ‘subject’: ‘RL78 Refridgeration Alert!’,
+	      ‘html’: ‘Temperature exceeded threshold’
+	    }
+	  }
+	 }).done(function(response) {
+	   console.log(response); // if you're into that sorta thing
+	 });
+}
