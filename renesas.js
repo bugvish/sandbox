@@ -84,6 +84,8 @@ $('button#emailsubmit').click(function(e){
     	window.setEmailAddress(emailaddy);
     	$("#emailfield").prop('disabled', true);
 });
-
+freeboard.on("dashboard_loaded", function(){
+                            console.log("dashboard_loaded!");
+                        });
 
 
