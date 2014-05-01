@@ -73,5 +73,5 @@ window.startServiceRequest = function() {
 
 window.endServiceRequest = function() {
 	window.servicerq2 = true;
-	SWARM.send(allyellowoff, toswarms);}
+	SWARM.send(allyellowoff, toswarms);
 }
