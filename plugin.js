@@ -2,11 +2,11 @@
 {
 var messageUpdatedFunctions = [];
 var swarmConnected = false;
-
+/*
 function onPresence(presence)
 {
 	console.log(presence);
-}
+}*/
 
 function onMessage(message)
 {
