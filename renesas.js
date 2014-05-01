@@ -1,11 +1,11 @@
-var toswarms = [{swarm: "5dbaf819af6eeec879a1a1d6c388664be4595bb3",resource: "714e1063eaf0f7980238040e777fbe543bc73fdc"}];	
+var toswarms = [{swarm: "5dbaf819af6eeec879a1a1d6c388664be4595bb3",resource: window.selectedResource}];	
 var WEBUI_RESOURCE = "5cf5ad58fa9ad98a01841fde8e1761b2ca473dbf";
 var allredon = {name: 'LED', feed:{'led0':true,'led2':true,'led4':true, 'led6':true, 'led8':true, 'led10':true}}; 
 var allredoff = {name: 'LED', feed:{'led0':false,'led2':false,'led4':false, 'led6':false, 'led8':false, 'led10':false}}; 
 var allyellowon = {name: 'LED', feed:{'led12':true}}; 
 var allyellowoff = {name: 'LED', feed:{'led12':false}}; 
 var resources = {};
-var selectedResource = "";
+var window.selectedResource = "";
 var API_KEY = "bc60aa60d80f7c104ad1e028a5223e7660da5f8c";
 var CFG_KEY = "359aff0298658552ec987b9354ea754b684a4047";
 
@@ -25,10 +25,15 @@ setTimeout(function(){
 	    	$('button#emailsubmit').prop("disabled",true);
 	});	
 	
-//	deviceSelect
+	$('select#deviceSelect').on('change', function (e) {
+    		var optionSelected = $("option:selected", this);
+    		var valueSelected = this.value;
+    		window.selectedResource = valueSelected;
+    		console.log(window.selectedResource);
+    		freeboard.setDatasourceSettings("TestBoard", {"device_resource_id":window.selectedResource})
+	});
 	
-	
-	},3000);
+},3000);
 
 function onPresence(presence) {
 	console.log(presence);
