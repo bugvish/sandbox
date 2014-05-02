@@ -138,7 +138,7 @@ function createCORSRequest(method, url) {
 window.tipAlert = function(){
 	//message.feed['led12']=(true);
 	SWARM.send(allredon, [{swarm: "5dbaf819af6eeec879a1a1d6c388664be4595bb3",resource: window.selectedResource}]);
-	freeboard.showDialog($("<div align="center">Alert!  Machine was tipped over.  Send Repair Team.</div>"),"Alert","ok",null,function(){window.alertActive=false;SWARM.send(allredoff, [{swarm: "5dbaf819af6eeec879a1a1d6c388664be4595bb3",resource: window.selectedResource}]);}); 
+	freeboard.showDialog($("<div align='center'>Alert!  Machine was tipped over.  Send Repair Team.</div>"),"Alert","ok",null,function(){window.alertActive=false;SWARM.send(allredoff, [{swarm: "5dbaf819af6eeec879a1a1d6c388664be4595bb3",resource: window.selectedResource}]);}); 
 	window.alertActive = true;
 }
 
@@ -189,7 +189,7 @@ window.resetEmail = function() {
 
 window.startServiceRequest = function() {
 	window.servicerq1 = true;
-	freeboard.showDialog($("<div align="center">Service Request Detected!  Please press Confirm</div>"),"Alert","Confirm",null,function(){SWARM.send(allyellowon, [{swarm: "5dbaf819af6eeec879a1a1d6c388664be4595bb3",resource: window.selectedResource}]);}); 
+	freeboard.showDialog($("<div align='center'>Service Request Detected!  Please press Confirm</div>"),"Alert","Confirm",null,function(){SWARM.send(allyellowon, [{swarm: "5dbaf819af6eeec879a1a1d6c388664be4595bb3",resource: window.selectedResource}]);}); 
 }
 
 window.endServiceRequest = function() {
