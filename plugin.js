@@ -83,7 +83,7 @@ function processShutdown(pluginInstance)
         }
     ],
     "external_scripts": [
-        "/vendor/bug-labs/swarm-production.js"
+        "https://d1z10qq7obk1ve.cloudfront.net/swarm/swarm-v0.7.2.js"
     ],
     newInstance   : function(settings, newInstanceCallback, updateCallback)
 	{
