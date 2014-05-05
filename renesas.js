@@ -69,7 +69,7 @@ function onPresence(presence) {
 			}
 		}
 		else {
-		        var url = 'http://api.bugswarm.com/resources/' + resource;
+		        var url = 'https://api.bugswarm.com/resources/' + resource;
 		        var xhr = createCORSRequest('GET', url);
 		        xhr.onload = function() {
 		          var responseText = xhr.responseText;
