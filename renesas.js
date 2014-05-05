@@ -37,7 +37,7 @@ setTimeout(function(){
 },3000);
 
 function onPresence(presence) {
-	console.log(presence);
+	//console.log(presence);
 
     if (("swarm" in presence.from) && (presence.from.resource !== WEBUI_RESOURCE)){
         var resource = presence.from.resource;
@@ -50,6 +50,7 @@ function onPresence(presence) {
         	resources[resource] = resource;
 		if ('XDomainRequest' in window && window.XDomainRequest !== null) {
 			// Use Microsoft XDR for Internet Explorer	
+			console.log('detected IE');
 			$.ajax({
 				  url: "http://api.bugswarm.com/renesas/getmac/"+resource,
 				  cache: false
