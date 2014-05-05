@@ -50,6 +50,16 @@ function onPresence(presence) {
         	resources[resource] = resource;
 		if ('XDomainRequest' in window && window.XDomainRequest !== null) {
 			// Use Microsoft XDR for Internet Explorer	
+			$.ajax({
+				  url: "http://api.bugswarm.com/renesas/getmac/"+resource,
+				  cache: false
+				})
+				  .done(function( data ) {
+				    console.log(data);
+				 });
+			
+			
+			/*
 			var xdr = new XDomainRequest();
 			if(xdr) {
 				xdr.onerror = function() { console.log('xdr error!');};
@@ -66,7 +76,7 @@ function onPresence(presence) {
 				};
 				xdr.open("GET", "http://api.bugswarm.com/renesas/getmac/"+resource);
 				xdr.send(null);
-			}
+			} */
 		}
 		else {
 		        var url = 'https://api.bugswarm.com/resources/' + resource;
