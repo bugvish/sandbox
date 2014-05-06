@@ -49,6 +49,7 @@ function onPresence(presence) {
         }
         else {
         	resources[resource] = resource;
+		/*
 		if ('XDomainRequest' in window && window.XDomainRequest !== null) {
 			// Use Microsoft XDR for Internet Explorer	
 			console.log('detected IE');
@@ -65,9 +66,9 @@ function onPresence(presence) {
 				 }).fail(function(jqXHR, textStatus, errorThrown) {
     					alert( "error "+errorThrown );
   					});
+			*/
 			
 			
-			/*
 			var xdr = new XDomainRequest();
 			if(xdr) {
 				xdr.onerror = function() { console.log('xdr error!');};
@@ -82,9 +83,9 @@ function onPresence(presence) {
 					resources[resource] = xdr.responseText;
 					$('option').filter('#'+resource).html(xdr.responseText);
 				};
-				xdr.open("GET", "http://api.bugswarm.com/renesas/getmac/"+resource);
+				xdr.open("GET", "https://api.bugswarm.com/renesas/getmac/"+resource);
 				xdr.send(null);
-			} */
+			} 
 		}
 		else {
 		        var url = 'https://api.bugswarm.com/resources/' + resource;
