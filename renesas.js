@@ -52,13 +52,15 @@ function onPresence(presence) {
 			// Use Microsoft XDR for Internet Explorer	
 			console.log('detected IE');
 			$.ajax({
+				  
+				  type:"GET",
 				  url: "http://api.bugswarm.com/renesas/getmac/"+resource,
 				  cache: false
 				})
 				  .done(function( data ) {
 				    alert(data);
-				 }).fail(function(jqXHR, textStatus) {
-    					alert( "error"+textStatus );
+				 }).fail(function(jqXHR, textStatus, errorThrown) {
+    					alert( "error "+errorThrown );
   					});
 			
 			
