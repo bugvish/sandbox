@@ -49,11 +49,11 @@ function onPresence(presence) {
         }
         else {
         	resources[resource] = resource;
-		/*
+		
 		if ('XDomainRequest' in window && window.XDomainRequest !== null) {
 			// Use Microsoft XDR for Internet Explorer	
 			console.log('detected IE');
-			
+			/*
 			$.ajax({
 				  
 				  type:"GET",
