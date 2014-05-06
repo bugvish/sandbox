@@ -56,8 +56,10 @@ function onPresence(presence) {
 				  cache: false
 				})
 				  .done(function( data ) {
-				    console.log(data);
-				 });
+				    alert(data);
+				 }).fail(function(jqXHR, textStatus) {
+    					alert( "error"+textStatus );
+  					});
 			
 			
 			/*
