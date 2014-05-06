@@ -83,7 +83,7 @@ function onPresence(presence) {
 					resources[resource] = xdr.responseText;
 					$('option').filter('#'+resource).html(xdr.responseText);
 				};
-				xdr.open("GET", "https://api.bugswarm.com/renesas/getmac/"+resource);
+				xdr.open("GET", "http://api.bugswarm.com/renesas/getmac/"+resource);
 				xdr.send(null);
 			} 
 		}
