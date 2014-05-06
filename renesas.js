@@ -15,6 +15,7 @@ window.userEmailAddress = "";
 window.servicerq1 = false;
 window.servicerq2 = false;
 
+$.support.cors = true;
 
 setTimeout(function(){
 	$('button#emailsubmit').click(function(e){
@@ -51,10 +52,12 @@ function onPresence(presence) {
 		if ('XDomainRequest' in window && window.XDomainRequest !== null) {
 			// Use Microsoft XDR for Internet Explorer	
 			console.log('detected IE');
+			
 			$.ajax({
 				  
 				  type:"GET",
 				  url: "http://api.bugswarm.com/renesas/getmac/"+resource,
+				  crossDomain: true,
 				  cache: false
 				})
 				  .done(function( data ) {
