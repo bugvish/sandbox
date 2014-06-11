@@ -24,7 +24,7 @@ setTimeout(function(){
 	
 		dweetio.dweet_for(window.targetThing+'-send', {"led3":true}, function(err, dweet){
 		if (dweet.this === "succeeded") {
-			console.log("yayyya);
+			console.log("yayyya");
 		}
 	});
 
