@@ -1,9 +1,7 @@
-var allredon = {name: 'LED', feed:{'led0':true,'led2':true,'led4':true, 'led6':true, 'led8':true, 'led10':true}}; 
-var allredoff = {name: 'LED', feed:{'led0':false,'led2':false,'led4':false, 'led6':false, 'led8':false, 'led10':false}}; 
-var allyellowon = {name: 'LED', feed:{'led12':true}}; 
-var allyellowoff = {name: 'LED', feed:{'led12':false}}; 
-var resources = {};
-
+var allredon = {'led3':true,'led5':true,'led7':true, 'led9':true, 'led11':true, 'led13':true}; 
+var allredoff = {'led3':false,'led5':false,'led7':false, 'led9':false, 'led11':false, 'led13':false};
+var allyellowon = {'led12':true}; 
+var allyellowoff = {'led12':false}; 
 
 window.targetThing = "";
 window.alertActive = false;
@@ -34,9 +32,9 @@ setTimeout(function(){
 
 
 window.tipAlert = function(){
-	dweetio.dweet_for(window.targetThing+'-send', {"led3":true}, function(err, dweet){
+	dweetio.dweet_for(window.targetThing+'-send', this.allredon, function(err, dweet){
 	});
-	freeboard.showDialog($("<div align='center'>Alert!  Machine was tipped over.  Send Repair Team.</div>"),"Alert","ok",null,function(){window.alertActive=false;dweetio.dweet_for(window.targetThing+'-send', {"led3":false}, function(err, dweet){});}); 
+	freeboard.showDialog($("<div align='center'>Alert!  Machine was tipped over.  Send Repair Team.</div>"),"Alert","ok",null,function(){window.alertActive=false;dweetio.dweet_for(window.targetThing+'-send', this.allredoff, function(err, dweet){});}); 
 	window.alertActive = true;
 }
 
