@@ -17,17 +17,10 @@ $.support.cors = true;
 setTimeout(function(){
 	$('button#thingsubmit').click(function(e){
 		window.setThing($("#thingfield").val());
-		freeboard.setDatasourceSettings("DemoBoard", {"name":window.targetThing});
-	    	console.log(window.targetThing);
+		freeboard.setDatasourceSettings("DemoBoard", {"thing_id":window.targetThing});
 	    	$("#thingfield").prop('disabled', true);
 	    	$('button#thingsubmit').prop("disabled",true);
 	
-		dweetio.dweet_for(window.targetThing+'-send', {"led3":true}, function(err, dweet){
-		if (dweet.this === "succeeded") {
-			console.log("yayyya");
-		}
-	});
-
 	});	
 	$('button#emailsubmit').click(function(e){
 		var emailaddy = $("#emailfield").val();
@@ -41,26 +34,10 @@ setTimeout(function(){
 
 
 window.tipAlert = function(){
-	//message.feed['led12']=(true);
 	dweetio.dweet_for(window.targetThing+'-send', {"led3":true}, function(err, dweet){
-		if (dweet.this === "succeeded") {
-			console.log("yayyya);
-		}
 	});
-	//SWARM.send(allredon, [{swarm: "5dbaf819af6eeec879a1a1d6c388664be4595bb3",resource: window.selectedResource}]);
-	//freeboard.showDialog($("<div align='center'>Alert!  Machine was tipped over.  Send Repair Team.</div>"),"Alert","ok",null,function(){window.alertActive=false;SWARM.send(allredoff, [{swarm: "5dbaf819af6eeec879a1a1d6c388664be4595bb3",resource: window.selectedResource}]);}); 
-	//window.alertActive = true;
-}
-
-window.toggleBuzzer = function() {
-	 SWARM.send({
-            name: 'Beep',
-            feed: {
-
-              freq: 500,
-              duration: 1}}, toswarms);
-        freeboard.showDialog($("<div>hello world</div>"),"test","ok",null,function(){window.alertActive=false;}); 
-        window.alertActive = true;
+	freeboard.showDialog($("<div align='center'>Alert!  Machine was tipped over.  Send Repair Team.</div>"),"Alert","ok",null,function(){window.alertActive=false;dweetio.dweet_for(window.targetThing+'-send', {"led3":false}, function(err, dweet){});}); 
+	window.alertActive = true;
 }
 
 window.setThing = function(thingname) {
@@ -103,22 +80,11 @@ window.resetEmail = function() {
 
 window.startServiceRequest = function() {
 	window.servicerq1 = true;
-	freeboard.showDialog($("<div align='center'>Service Request Detected!  Please press Confirm</div>"),"Alert","Confirm",null,function(){SWARM.send(allyellowon, [{swarm: "5dbaf819af6eeec879a1a1d6c388664be4595bb3",resource: window.selectedResource}]);}); 
+	freeboard.showDialog($("<div align='center'>Service Request Detected!  Please press Confirm</div>"),"Alert","Confirm",null,function(){dweetio.dweet_for(window.targetThing+'-send', {"led15":true}, function(err, dweet){});}); 
 }
 
 window.endServiceRequest = function() {
 	window.servicerq2 = true;
-	SWARM.send(allyellowoff, [{swarm: "5dbaf819af6eeec879a1a1d6c388664be4595bb3",resource: window.selectedResource}]);
+	dweetio.dweet_for(window.targetThing+'-send', {"led15":false}, function(err, dweet){});
 }
-
-/*
-setTimeout(function(){
-	$('button#emailsubmit').click(function(e){
-		var emailaddy = $("#emailfield").val();
-	    	console.log(emailaddy);
-	    	window.setEmailAddress(emailaddy);
-	    	$("#emailfield").prop('disabled', true);
-	    	$('button#emailsubmit').prop("disabled",true);
-	});
-},10000); */
 
