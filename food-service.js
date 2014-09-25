@@ -125,7 +125,7 @@ function changeStore() {
 function changeMachine(machine) {
 	freeboard.showLoadingIndicator(true);
 	setTimeout(function(){	
-		freeboard.setDatasourceSettings("Machine_1", {"datafile":"http://bugops.com/vzwdemos/"+machine+".json"});
+		freeboard.setDatasourceSettings("Machine_1", {"datafile":"https://thingproxy.freeboard.io/fetch/https://rawgit.com/bugvish/sandbox/master/"+machine+".json"});
 		freeboard.showLoadingIndicator(false);
 	},1200);
 }
