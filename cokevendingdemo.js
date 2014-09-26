@@ -10,7 +10,6 @@ setTimeout(function(){
 			freeboard.showLoadingIndicator(false);
 			//datasources["VendingMachine"]["count"]++;
 			window.count++;
-			window.alreadyVerified = false;
 		},3000);
 	});	
 		
