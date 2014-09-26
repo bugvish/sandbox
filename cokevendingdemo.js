@@ -15,3 +15,7 @@ setTimeout(function(){
 		
 },3000);
 
+window.showVerificationAlert = function() {
+	
+	freeboard.showDialog($("<div align='center'>Reward points confirmed!  Please press Coke button to trigger vend.</div>"),"Confirmed!","OK",null,function(){}); 
+}
