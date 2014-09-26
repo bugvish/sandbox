@@ -1,6 +1,7 @@
 $.support.cors = true;
 
 window.count = 130;
+window.alreadyVerified = false;
 
 setTimeout(function(){	
 	$('button#vendingButton').click(function(e){
@@ -9,7 +10,7 @@ setTimeout(function(){
 			freeboard.showLoadingIndicator(false);
 			//datasources["VendingMachine"]["count"]++;
 			window.count++;
-			//INCREMENT 
+			window.alreadyVerified = false;
 		},5000);
 	});	
 		
