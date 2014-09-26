@@ -1,14 +1,21 @@
 $.support.cors = true;
 
+window.count = 130;
+
 setTimeout(function(){	
 	$('button#vendingButton').click(function(e){
-		dweetio.dweet_for('coke-vendingdemo-waltham', {"credit":200}, function(err, dweet){});
 		freeboard.showLoadingIndicator(true);
 		setTimeout(function(){	
 			freeboard.showLoadingIndicator(false);
-			freeboard.showDialog($("<div align='center'>Vending Machine Credit Sent!  Please make a selection.</div>"),"Success!","OK",null,function(){}); 
-		},7000);
+			//datasources["VendingMachine"]["count"]++;
+			window.count++;
+			//INCREMENT 
+		},5000);
 	});	
 		
 },3000);
 
+window.showVerificationAlert = function() {
+	
+	freeboard.showDialog($("<div align='center'>Reward points confirmed!  Please press Coke button to trigger vend.</div>"),"Confirmed!","OK",null,function(){}); 
+}
