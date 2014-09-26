@@ -11,7 +11,7 @@ setTimeout(function(){
 			//datasources["VendingMachine"]["count"]++;
 			window.count++;
 			window.alreadyVerified = false;
-		},5000);
+		},3000);
 	});	
 		
 },3000);
