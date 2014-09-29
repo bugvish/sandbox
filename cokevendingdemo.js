@@ -1,6 +1,8 @@
 $.support.cors = true;
 
-window.count = 130;
+window.count = 146;
+window.proximitycount = 198;
+window.pointscount = 180;
 window.alreadyVerified = false;
 
 setTimeout(function(){	
