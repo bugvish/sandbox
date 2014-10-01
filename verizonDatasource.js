@@ -142,7 +142,8 @@
 				},
 				success: function (data) {
 					console.log('Successful data grab!');
-					updateCallback(JSON.parse(data));
+					console.log(JSON.stringify(data));
+					updateCallback(JSON.stringify(data));
 					//console.log(sessiontoken);
 // 					lockErrorStage = true;
 // 					updateCallback(data);
@@ -189,5 +190,6 @@
 
 		// Here we call createRefreshTimer with our current settings, to kick things off, initially. Notice how we make use of one of the user defined settings that we setup earlier.
 		logIn(currentSettings.user_name,currentSettings.password);
-		updateRefresh(currentSettings.refresh_time * 1000);
+		getData();
+		//updateRefresh(currentSettings.refresh_time * 1000);
 	}
