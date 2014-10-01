@@ -83,7 +83,7 @@
 		
 		function logIn(username,password) {
 			$.ajax({
-				url: "http://bugvish-prod.apigee.net/sessionservice/login?Username="+username+"&Password="+password,
+				url: "https://bugvish-prod.apigee.net/sessionservice/login?Username="+username+"&Password="+password,
 				//dataType: (errorStage == 1) ? "JSONP" : "JSON",
 				type: "GET",
 				beforeSend: function (xhr) {
