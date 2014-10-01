@@ -99,10 +99,10 @@
 					}
 				},
 				success: function (data) {
-					console.log('Successful login! ' + data);
+					console.log('Successful login!');
 					isLoggedIn = true;
 					sessiontoken = data["LogInResponse"]["Output"]["SessionToken"];
-					console.log(sessiontoken);
+					//console.log(sessiontoken);
 // 					lockErrorStage = true;
 // 					updateCallback(data);
 				},
@@ -120,13 +120,49 @@
 		/* This is some function where I'll get my data from somewhere */
 		function getData()
 		{
-			var newData = { hello : "world! it's " + new Date().toLocaleTimeString() }; // Just putting some sample data in for fun.
+			//var newData = { hello : "world! it's " + new Date().toLocaleTimeString() }; // Just putting some sample data in for fun.
+			console.log(sessiontoken);
+			$.ajax({
+				url: "https://bugvish-prod.apigee.net/deviceservice/devicelist?SessionToken="+sessiontoken,
+				//dataType: (errorStage == 1) ? "JSONP" : "JSON",
+				type: "GET",
+				beforeSend: function (xhr) {
+					try {
+						_.each(currentSettings.headers, function (header) {
+							var name = header.name;
+							var value = header.value;
 
+							if (!_.isUndefined(name) && !_.isUndefined(value)) {
+								xhr.setRequestHeader(name, value);
+							}
+						});
+					}
+					catch (e) {
+					}
+				},
+				success: function (data) {
+					console.log('Successful data grab!');
+					updateCallback(JSON.parse(data));
+					//console.log(sessiontoken);
+// 					lockErrorStage = true;
+// 					updateCallback(data);
+				},
+				error: function (xhr, status, error) {
+					console.log('error!');
+// 					if (!lockErrorStage) {
+// 						// TODO: Figure out a way to intercept CORS errors only. The error message for CORS errors seems to be a standard 404.
+// 						errorStage++;
+// 						self.updateNow();
+// 					}
+				}
+			});
+			
+			
 			/* Get my data from somewhere and populate newData with it... Probably a JSON API or something. */
 			/* ... */
 
 			// I'm calling updateCallback to tell it I've got new data for it to munch on.
-			updateCallback(newData);
+			//updateCallback(newData);
 		}
 
 
@@ -141,7 +177,7 @@
 		// **updateNow()** (required) : A public function we must implement that will be called when the user wants to manually refresh the datasource
 		self.updateNow = function()
 		{
-			//getData();
+			getData();
 		}
 
 		// **onDispose()** (required) : A public function we must implement that will be called when this instance of this plugin is no longer needed. Do anything you need to cleanup after yourself here.
@@ -153,5 +189,5 @@
 
 		// Here we call createRefreshTimer with our current settings, to kick things off, initially. Notice how we make use of one of the user defined settings that we setup earlier.
 		logIn(currentSettings.user_name,currentSettings.password);
-		//updateRefresh(currentSettings.refresh * 1000);
+		updateRefresh(currentSettings.refresh * 1000);
 	}
