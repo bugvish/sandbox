@@ -186,6 +186,6 @@
 
 		// Here we call createRefreshTimer with our current settings, to kick things off, initially. Notice how we make use of one of the user defined settings that we setup earlier.
 		logIn(currentSettings.user_name,currentSettings.password);
-		//getData();
-		setTimeout(updateRefresh(currentSettings.refresh_time * 1000),5000);
+		setTimeout(getData(),5000);
+		updateRefresh(currentSettings.refresh_time * 1000);
 	}
