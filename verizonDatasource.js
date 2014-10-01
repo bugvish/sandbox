@@ -39,8 +39,8 @@
 			{
 				"name"         : "refresh_time",
 				"display_name" : "Refresh Time",
-				"type"         : "text",
-				"description"  : "In seconds",
+				"type"         : "number",
+					suffix	: "seconds",
 				"default_value": 60
 			}
 		],
@@ -122,48 +122,44 @@
 		{
 			//var newData = { hello : "world! it's " + new Date().toLocaleTimeString() }; // Just putting some sample data in for fun.
 			console.log(sessiontoken);
-			$.ajax({
-				url: "https://bugvish-prod.apigee.net/deviceservice/devicelist?SessionToken="+sessiontoken,
-				//dataType: (errorStage == 1) ? "JSONP" : "JSON",
-				type: "GET",
-				beforeSend: function (xhr) {
-					try {
-						_.each(currentSettings.headers, function (header) {
-							var name = header.name;
-							var value = header.value;
-
-							if (!_.isUndefined(name) && !_.isUndefined(value)) {
-								xhr.setRequestHeader(name, value);
-							}
-						});
+			if (sessiontoken !== null) {
+				$.ajax({
+					url: "https://bugvish-prod.apigee.net/deviceservice/devicelist?SessionToken="+sessiontoken,
+					//dataType: (errorStage == 1) ? "JSONP" : "JSON",
+					type: "GET",
+					beforeSend: function (xhr) {
+						try {
+							_.each(currentSettings.headers, function (header) {
+								var name = header.name;
+								var value = header.value;
+	
+								if (!_.isUndefined(name) && !_.isUndefined(value)) {
+									xhr.setRequestHeader(name, value);
+								}
+							});
+						}
+						catch (e) {
+						}
+					},
+					success: function (data) {
+						console.log('Successful data grab!');
+						console.log(JSON.stringify(data));
+						updateCallback(data);
+						//console.log(sessiontoken);
+	// 					lockErrorStage = true;
+	// 					updateCallback(data);
+					},
+					error: function (xhr, status, error) {
+						console.log('error!');
+	// 					if (!lockErrorStage) {
+	// 						// TODO: Figure out a way to intercept CORS errors only. The error message for CORS errors seems to be a standard 404.
+	// 						errorStage++;
+	// 						self.updateNow();
+	// 					}
 					}
-					catch (e) {
-					}
-				},
-				success: function (data) {
-					console.log('Successful data grab!');
-					console.log(JSON.stringify(data));
-					updateCallback(data);
-					//console.log(sessiontoken);
-// 					lockErrorStage = true;
-// 					updateCallback(data);
-				},
-				error: function (xhr, status, error) {
-					console.log('error!');
-// 					if (!lockErrorStage) {
-// 						// TODO: Figure out a way to intercept CORS errors only. The error message for CORS errors seems to be a standard 404.
-// 						errorStage++;
-// 						self.updateNow();
-// 					}
-				}
-			});
+				});
+			}
 			
-			
-			/* Get my data from somewhere and populate newData with it... Probably a JSON API or something. */
-			/* ... */
-
-			// I'm calling updateCallback to tell it I've got new data for it to munch on.
-			//updateCallback(newData);
 		}
 
 
@@ -190,6 +186,6 @@
 
 		// Here we call createRefreshTimer with our current settings, to kick things off, initially. Notice how we make use of one of the user defined settings that we setup earlier.
 		logIn(currentSettings.user_name,currentSettings.password);
-		getData();
-		//updateRefresh(currentSettings.refresh_time * 1000);
+		//getData();
+		setTimeout(updateRefresh(currentSettings.refresh_time * 1000),5000);
 	}
