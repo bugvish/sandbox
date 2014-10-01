@@ -143,7 +143,7 @@
 				success: function (data) {
 					console.log('Successful data grab!');
 					console.log(JSON.stringify(data));
-					updateCallback(JSON.stringify(data));
+					//updateCallback(JSON.stringify(data));
 					//console.log(sessiontoken);
 // 					lockErrorStage = true;
 // 					updateCallback(data);
