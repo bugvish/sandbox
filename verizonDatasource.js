@@ -1,5 +1,3 @@
-(function()
-{
 	// ## A Datasource Plugin
 	//
 	// -------------------
@@ -157,4 +155,3 @@
 		logIn(currentSettings.user_name,currentSettings.password);
 		//updateRefresh(currentSettings.refresh * 1000);
 	}
-}());
