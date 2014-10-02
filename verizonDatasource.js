@@ -102,6 +102,7 @@
 					console.log('Successful login!');
 					isLoggedIn = true;
 					sessiontoken = data["LogInResponse"]["Output"]["SessionToken"];
+					self.updateNow();
 					//console.log(sessiontoken);
 // 					lockErrorStage = true;
 // 					updateCallback(data);
@@ -186,6 +187,6 @@
 
 		// Here we call createRefreshTimer with our current settings, to kick things off, initially. Notice how we make use of one of the user defined settings that we setup earlier.
 		logIn(currentSettings.user_name,currentSettings.password);
-		self.updateNow();
+		//self.updateNow();
 		updateRefresh(currentSettings.refresh_time * 1000);
 	}
