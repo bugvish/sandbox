@@ -2,7 +2,7 @@
 {    var gaugeWidget = function (settings) {
         var self = this;
 
-        var thisGaugeID = "gauge-" + gaugeID++;
+        var window.thisGaugeID = "gauge-" + gaugeID++;
         var titleElement = $('<h2 class="section-title"></h2>');
         var gaugeElement = $('<div class="gauge-widget" id="' + thisGaugeID + '"></div>');
 
