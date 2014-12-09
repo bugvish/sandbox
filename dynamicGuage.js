@@ -1,175 +1,114 @@
 (function()
-{
-var messageUpdatedFunctions = [];
-var swarmConnected = false;
-/*
-function onPresence(presence)
-{
-	console.log(presence);
-}*/
+{    var gaugeWidget = function (settings) {
+        var self = this;
 
-function onMessage(message)
-{
-	_.each(messageUpdatedFunctions, function(messageUpdatedFunction)
-	{
-		messageUpdatedFunction(message);
-	});
-}
+        var thisGaugeID = "gauge-" + gaugeID++;
+        var titleElement = $('<h2 class="section-title"></h2>');
+        var gaugeElement = $('<div class="gauge-widget" id="' + thisGaugeID + '"></div>');
 
-function onError(error)
-{
-	console.log('Bugswarm error! -> ' + JSON.stringify(error));
-}
+        var gaugeObject;
+        var rendered = false;
 
-function onConnect()
-{
-	swarmConnected = true;
-}
+        var currentSettings = settings;
 
+        function createGauge() {
+            if (!rendered) {
+                return;
+            }
 
-function connect() {
-	if(!swarmConnected)
-	{
-		SWARM.connect({ apikey: "bc60aa60d80f7c104ad1e028a5223e7660da5f8c",
-			resource          : "5cf5ad58fa9ad98a01841fde8e1761b2ca473dbf",
-			swarms            : ["69df1aea11433b3f85d2ca6e9c3575a9c86f8182","5dbaf819af6eeec879a1a1d6c388664be4595bb3"],
-			onmessage         : onMessage,
-			onpresence        : onPresence,
-			onerror           : onError,
-			onconnect         : onConnect
-		});
-	}
-}
+            gaugeElement.empty();
 
-function processStartup(pluginInstance)
-{
-	connect();
-
-	if(!_.isUndefined(pluginInstance))
-	{
-		messageUpdatedFunctions.push(pluginInstance.messageReceived);
-	}
-}
-
-function processShutdown(pluginInstance)
-{
-	var index = messageUpdatedFunctions.indexOf(pluginInstance.messageReceived);
-
-	if(index != -1)
-	{
-		messageUpdatedFunctions.splice(index, 1);
-	}
-
-	if(messageUpdatedFunctions.length == 0)
-	{
-                if(swarmConnected)
-                {
-		SWARM.disconnect();
-		swarmConnected = false;
-                }
-	}
-}
-	
-	freeboard.loadDatasourcePlugin({
-
-
-    "display_name": "Renesas RL78 Fridge Demo",
-    "type_name": "_typeid_",
-    "settings": [
-        {
-            "type": "text",
-            "display_name": "Board ID",
-            "name": "device_resource_id"
+            gaugeObject = new JustGage({
+                id: thisGaugeID,
+                value: (_.isUndefined(currentSettings.min_value) ? 0 : currentSettings.min_value),
+                min: (_.isUndefined(currentSettings.min_value) ? 0 : currentSettings.min_value),
+                max: (_.isUndefined(currentSettings.max_value) ? 0 : currentSettings.max_value),
+                label: currentSettings.units,
+                showInnerShadow: false,
+                valueFontColor: "#d3d4d4",
+                customSectors: [{
+                      color : "#ff0000",
+                      lo : 0,
+                      hi : 1
+                    },{
+                      color : "#0000ff",
+                      lo : 99,
+                      hi : 100
+                }]
+            });
         }
-    ],
-    "external_scripts": [
-        "https://d1z10qq7obk1ve.cloudfront.net/swarm/swarm-v0.7.2.js"
-    ],
-    newInstance   : function(settings, newInstanceCallback, updateCallback)
-	{
-		newInstanceCallback(new RL78FridgeDatasourcePlugin(settings, updateCallback));
-	}});
 
+        this.render = function (element) {
+            rendered = true;
+            $(element).append(titleElement).append($('<div class="gauge-widget-wrapper"></div>').append(gaugeElement));
+            createGauge();
+        }
 
+        this.onSettingsChanged = function (newSettings) {
+            if (newSettings.min_value != currentSettings.min_value || newSettings.max_value != currentSettings.max_value || newSettings.units != currentSettings.units) {
+                currentSettings = newSettings;
+                createGauge();
+            }
+            else {
+                currentSettings = newSettings;
+            }
 
-	var RL78FridgeDatasourcePlugin = function(settings, updateCallback)
-	{
-		var self = this;
-		var currentSettings = settings;
-		var deviceState = {};
+            titleElement.html(newSettings.title);
+        }
 
-		this.updateNow = function()
-		{
-			// Not implemented
-		}
+        this.onCalculatedValueChanged = function (settingName, newValue) {
+            if (!_.isUndefined(gaugeObject)) {
+                gaugeObject.refresh(Number(newValue));
+            }
+        }
 
-		this.onDispose = function()
-		{
-			processShutdown(self);
-		}
+        this.onDispose = function () {
+        }
 
-		this.onSettingsChanged = function(newSettings)
-		{
-			currentSettings = newSettings;
-		}
+        this.getHeight = function () {
+            return 3;
+        }
 
-		this.messageReceived = function(message)
-		{
-			if(message.from.resource == currentSettings.device_resource_id)
-			{
-				var sensorName = message.payload.name;
-				var sensorValue = message.payload.feed;
+        this.onSettingsChanged(settings);
+    };
 
-				if(!_.isUndefined(sensorName) && !_.isUndefined(sensorValue))
-				{
-					switch (sensorName)
-					{
-						case "Acceleration":
-						{
-							deviceState["Acceleration_X"] = sensorValue["x"];
-							deviceState["Acceleration_Y"] = sensorValue["y"];
-							deviceState["Acceleration_Z"] = sensorValue["z"];
-							break;
-						}
-						case "Button":
-						{
-							deviceState["Button_1"] = sensorValue["b1"];
-							deviceState["Button_2"] = sensorValue["b2"];
-							deviceState["Button_3"] = sensorValue["b3"];
-							break;
-						}
-						case "Light":
-						{
-							deviceState["Light"] = sensorValue["Value"];
-							break;
-						}
-						case "Potentiometer":
-						{
-							deviceState["Potentiometer"] = sensorValue["Raw"];
-							break;
-						}
-						case "Sound Level":
-						{
-							deviceState["Sound"] = sensorValue["Raw"];
-							break;
-						}
-						case "Temperature":
-						{
-							deviceState["Temperature"] = sensorValue["TempF"];
-							break;
-						}
-						default:
-						{
-							deviceState[sensorName] = sensorValue;
-						}
-					}
-
-					updateCallback(deviceState);
-				}
-			}
-		}
-
-		processStartup(self);
-	};
-
-}());
+    freeboard.loadWidgetPlugin({
+        type_name: "gauge",
+        display_name: "Gauge",
+        "external_scripts" : [
+            "plugins/thirdparty/raphael.2.1.0.min.js",
+            "plugins/thirdparty/justgage.1.0.1.js"
+        ],
+        settings: [
+            {
+                name: "title",
+                display_name: "Title",
+                type: "text"
+            },
+            {
+                name: "value",
+                display_name: "Value",
+                type: "calculated"
+            },
+            {
+                name: "units",
+                display_name: "Units",
+                type: "text"
+            },
+            {
+                name: "min_value",
+                display_name: "Minimum",
+                type: "text",
+                default_value: 0
+            },
+            {
+                name: "max_value",
+                display_name: "Maximum",
+                type: "text",
+                default_value: 100
+            }
+        ],
+        newInstance: function (settings, newInstanceCallback) {
+            newInstanceCallback(new gaugeWidget(settings));
+        }
+    });}());
