@@ -9,6 +9,7 @@ window.emailActive = false;
 window.userEmailAddress = "";
 window.servicerq1 = false;
 window.servicerq2 = false;
+window.key = "";
 
 $.support.cors = true;
 
@@ -53,7 +54,7 @@ window.sendEmailAlert = function() {
 		  type: "POST",
 		  url: "https://mandrillapp.com/api/1.0/messages/send.json",
 		  data: {
-		    'key': 'gNeJtNdrBCy42EZp3dsMbw',
+		    'key': window.key,
 		    'message': {
 		      'from_email': 'alerts@bugswarm.com',
 		      'to': [
