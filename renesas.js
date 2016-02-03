@@ -183,7 +183,7 @@ window.sendEmailAlert = function() {
 		  type: "POST",
 		  url: "https://mandrillapp.com/api/1.0/messages/send.json",
 		  data: {
-		    'key': 'gNeJtNdrBCy42EZp3dsMbw',
+		    'key': '',
 		    'message': {
 		      'from_email': 'alerts@bugswarm.com',
 		      'to': [
